@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مُحوّل الكتب إلى المكتبة</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    body { font-family: sans-serif; background: #0b0e14; color: #fff; text-align: center; padding: 40px 20px; }
+    .box { background: #121824; border: 1px solid #d4af37; padding: 30px; border-radius: 12px; max-width: 500px; margin: 0 auto; }
+    input { margin: 20px 0; color: #fff; }
+    button { background: #d4af37; color: #000; border: none; padding: 12px 24px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 16px; }
+    #status { margin-top: 20px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>أداة تحويل كتاب الكافي إلى data.json</h2>
+    <p>اختر ملف كتاب الكافي (.epub أو .equb) من هاتفك:</p>
+    
+    <input type="file" id="epubInput" accept=".epub,.equb,.zip">
+    <br>
+    <button onclick="processEpub()">تحويل واستخراج الروايات</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script>
+    async function processEpub() {
+      const input = document.getElementById('epubInput');
+      const status = document.getElementById('status');
+
+      if (!input.files.length) {
+        alert('يرجى اختيار ملف الكتاب أولاً!');
+        return;
+      }
+
+      status.innerText = "⏳ جاري قراءة الملف واستخراج الروايات...";
+
+      try {
+        const file = input.files[0];
+        const zip = await JSZip.loadAsync(file);
+        let novels = [];
+        let hadithId = 1;
+        let currentChapter = "أصول الكافي";
+
+        const filenames = Object.keys(zip.files);
+
+        for (let name of filenames) {
+          if (name.endsWith('.html') || name.endsWith('.xhtml') || name.endsWith('.htm')) {
+            const content = await zip.files[name].async("text");
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, "text/html");
+            const paragraphs = doc.querySelectorAll('p, div, h1, h2, h3');
+
+            paragraphs.forEach(p => {
+              let text = p.textContent.replace(/\s+/g, ' ').trim();
+              if (text.length > 20) {
+                if (text.includes('باب') && text.length < 80) {
+                  currentChapter = text;
+                } else {
+                  novels.push({
+                    id: hadithId++,
+                    title: text.substring(0, 50) + "...",
+                    text: text,
+                    book: "الكافي",
+                    chapter: currentChapter,
+                    category: "أصول الكافي",
+                    author: "الشيخ الكليني",
+                    volume: "1",
+                    page: "-"
+                  });
+                }
+              }
+            });
+          }
+        }
+
+        if (novels.length === 0) {
+          status.innerText = "⚠️ لم يتم العثور على نصوص داخل الملف، اعد التأكد من الصيغة.";
+          return;
+        }
+
+        // إنشاء وتنزيل ملف data.json تلقائياً
+        const jsonString = JSON.stringify(novels, null, 2);
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "data.json";
+        link.click();
+
+        status.innerText = `✅ تم استخراج ${novels.length} رواية بنجاح وتم تنزيل data.json!`;
+
+      } catch (err) {
+        status.innerText = "❌ حدث خطأ في معالجة الملف: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
