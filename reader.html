@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قارئ الكتب - المكتبة المهدوية</title>
+  <style>
+    :root {
+      --bg-color: #0b0e14;
+      --card-bg: #121824;
+      --accent: #d4af37;
+      --text: #e2e8f0;
+      --subtext: #94a3b8;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container { width: 100%; max-width: 650px; }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .back-btn {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .book-header-title { font-size: 18px; color: var(--accent); font-weight: bold; }
+    .search-box { width: 100%; margin-bottom: 15px; }
+    .search-box input {
+      width: 100%; padding: 14px; background: var(--card-bg);
+      border: 1px solid var(--accent); border-radius: 10px;
+      color: var(--text); font-size: 16px; outline: none; box-sizing: border-box;
+    }
+    .book-page {
+      background: var(--card-bg);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px; padding: 25px 20px; min-height: 350px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5); user-select: none;
+    }
+    .page-header {
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding-bottom: 10px; margin-bottom: 15px;
+      display: flex; justify-content: space-between; font-size: 14px; color: var(--accent);
+    }
+    .hadith-text { font-size: 19px; line-height: 1.8; color: #f1f5f9; text-align: justify; flex-grow: 1; margin-bottom: 20px; }
+    .page-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px; display: flex; justify-content: space-between; font-size: 13px; color: var(--subtext);
+    }
+    .nav-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; }
+    .nav-btn {
+      background: var(--card-bg); border: 1px solid var(--accent);
+      color: var(--accent); padding: 12px 20px; border-radius: 8px;
+      font-weight: bold; cursor: pointer; flex: 1; text-align: center;
+    }
+    .nav-btn:disabled { border-color: #334155; color: #475569; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">➔ العودة للمكتبة</a>
+    <span class="book-header-title" id="mainBookTitle">الكتاب</span>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="ابحث داخل هذا الكتاب..." oninput="handleSearch(event)">
+  </div>
+
+  <div class="book-page" id="bookPage">
+    <div class="page-header">
+      <span id="chapterTitle">الفصل</span>
+      <span id="hadithId">#1</span>
+    </div>
+
+    <div class="hadith-text" id="hadithText">جاري تحميل النص...</div>
+
+    <div class="page-footer">
+      <span id="authorName">-</span>
+      <span>اسحب لليمين/اليسار للتقليب 👈👉</span>
+    </div>
+  </div>
+
+  <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn" onclick="prevHadith()">السابقة ➔</button>
+
+    <div style="font-size:14px; color:var(--subtext)" id="counterInfo">1 / 1</div>
+    <button class="nav-btn" id="nextBtn" onclick="nextHadith()">⬅ التالية</button>
+  </div>
+</div>
+
+<script>
+  let allHadiths = [];
+  let currentResults = [];
+  let currentIndex = 0;
+  let searchTimeout = null;
+
+  // معرفة أي كتاب اختاره المستخدم من الرابط
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookFile = urlParams.get('book') || 'data.json';
+  const bookTitle = urlParams.get('title') || 'الكافي';
+  document.getElementById('mainBookTitle').innerText = bookTitle;
+
+  async function loadData() {
+    try {
+      const res = await fetch(bookFile);
+      allHadiths = await res.json();
+      currentResults = [...allHadiths];
+      currentIndex = 0;
+      renderCurrentPage();
+    } catch (err) {
+      document.getElementById('hadithText').innerText = "❌ حدث خطأ في تحميل ملف البيانات لهذا الكتاب.";
+    }
+  }
+
+  function renderCurrentPage() {
+    if (!currentResults.length) {
+      document.getElementById('hadithText').innerText = "لم يتم العثور على أي نتائج.";
+      document.getElementById('chapterTitle').innerText = "-";
+      document.getElementById('hadithId').innerText = "#0";
+      document.getElementById('counterInfo').innerText = "0 / 0";
+      document.getElementById('prevBtn').disabled = true;
+      document.getElementById('nextBtn').disabled = true;
+      return;
+    }
+
+    const item = currentResults[currentIndex];
+    document.getElementById('hadithText').innerText = item.text;
+    document.getElementById('chapterTitle').innerText = item.chapter || bookTitle;
+    document.getElementById('hadithId').innerText = `رواية #${item.id}`;
+    document.getElementById('authorName').innerText = item.author || "";
+    document.getElementById('counterInfo').innerText = `${currentIndex + 1} من ${currentResults.length}`;
+
+    document.getElementById('prevBtn').disabled = (currentIndex === 0);
+    document.getElementById('nextBtn').disabled = (currentIndex === currentResults.length - 1);
+  }
+
+  function nextHadith() {
+    if (currentIndex < currentResults.length - 1) {
+      currentIndex++;
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function prevHadith() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function handleSearch(event) {
+    clearTimeout(searchTimeout);
+    const query = event.target.value.trim().toLowerCase();
+    searchTimeout = setTimeout(() => {
+      if (!query) {
+        currentResults = [...allHadiths];
+      } else {
+        currentResults = allHadiths.filter(h => 
+          h.text.toLowerCase().includes(query) || 
+          (h.chapter && h.chapter.toLowerCase().includes(query))
+        );
+      }
+      currentIndex = 0;
+      renderCurrentPage();
+    }, 250);
+  }
+
+  // دعم التمرير باللمس للموبايل
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const pageElement = document.getElementById('bookPage');
+
+  pageElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, false);
+  pageElement.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchEndX - touchStartX < -50) nextHadith();
+    if (touchEndX - touchStartX > 50) prevHadith();
+  }, false);
+
+  loadData();
+</script>
+
+</body>
+</html>
