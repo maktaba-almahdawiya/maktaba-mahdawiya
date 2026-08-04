@@ -3,78 +3,361 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>المكتبة المهدوية</title>
+
+  <!-- ==================== وسوم تهيئة البحث للفهرسة (SEO) ==================== -->
+  <title>المكتبة المهدوية الرقمية - موسوعة الروايات والأحاديث الشريفة</title>
+  <meta name="description" content="المكتبة المهدوية الرقمية: تصفح وبحث سريع وبدون لاق في كتاب الكافي وروايات وأحاديث أهل البيت عليهم السلام مع دعم القراءة أونلاين وأوفلاين.">
+  <meta name="keywords" content="المكتبة المهدوية, الكافي, أصول الكافي, الشيخ الكليني, أحاديث أهل البيت, روايات الشيعة, بحث في الكافي">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="المكتبة المهدوية">
+
+  <!-- وسوم مشاركة الرابط على مواقع التواصل الاجتماعي (Open Graph / Facebook / Telegram) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="المكتبة المهدوية الرقمية">
+  <meta property="og:description" content="تصفح وبحث سريع في أصول الكافي ومصادر الحديث الشريف.">
+  <meta property="og:site_name" content="المكتبة المهدوية">
+
+  <!-- ربط التطبيق وإعدادات الأوفلاين -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0e14">
+
+  <!-- بيانات مهيكلة لتفهيم محرك بحث كوكَل عن طبيعة الموقع (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "المكتبة المهدوية الرقمية",
+    "description": "تصفح وبحث سريع في أصول الكافي وروايات الحديث الشريف",
+    "inLanguage": "ar"
+  }
+  </script>
+
   <style>
-    body {
-      background-color: #0b0e14;
-      color: #e2e8f0;
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      padding: 20px;
+    :root {
+      --bg-color: #0b0e14;
+      --card-bg: #121824;
+      --accent: #d4af37;
+      --text: #e2e8f0;
+      --subtext: #94a3b8;
     }
-    h1 { text-align: center; color: #d4af37; margin-bottom: 30px; }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container { width: 100%; max-width: 700px; }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    header h1 {
+      color: var(--accent);
+      font-size: 26px;
+      margin: 0 0 8px 0;
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+    }
+    header p { color: var(--subtext); font-size: 14px; margin: 0; }
+
+    .view-section { display: block; }
+    .hidden { display: none !important; }
+
     .books-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 20px;
-      max-width: 800px;
-      margin: 0 auto;
+      margin-top: 15px;
     }
+
     .book-card {
-      background: #121824;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: var(--card-bg);
+      border: 1px solid rgba(212, 175, 55, 0.25);
       border-radius: 12px;
       padding: 15px;
       text-align: center;
-      text-decoration: none;
-      color: inherit;
+      cursor: pointer;
       transition: transform 0.2s, border-color 0.2s;
     }
     .book-card:hover {
       transform: translateY(-5px);
-      border-color: #d4af37;
+      border-color: var(--accent);
     }
     .book-cover {
       width: 100%;
-      height: 200px;
-      background: #1a2234;
+      height: 190px;
+      background: linear-gradient(135deg, #1a2234, #0f141f);
+      border: 1px solid var(--accent);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #d4af37;
-      font-size: 20px;
+      color: var(--accent);
+      font-size: 22px;
       font-weight: bold;
       margin-bottom: 12px;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
     }
-    .book-title { font-size: 16px; font-weight: bold; margin-bottom: 5px; }
-    .book-author { font-size: 13px; color: #94a3b8; }
+    .book-title { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
+    .book-author { font-size: 12px; color: var(--subtext); }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .back-btn {
+      background: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    .book-page {
+      background: var(--card-bg);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      padding: 22px 18px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+    .page-header {
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--accent);
+    }
+    .hadith-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #f1f5f9;
+      text-align: justify;
+      flex-grow: 1;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+    .page-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--subtext);
+    }
+
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      gap: 10px;
+    }
+    .nav-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+    }
+    .nav-btn:disabled { border-color: #334155; color: #475569; cursor: not-allowed; }
   </style>
 </head>
 <body>
 
-  <h1>📚 المكتبة المهدوية</h1>
+<div class="container">
 
-  <div class="books-grid">
+  <!-- الواجهة الرئيسية (معرض الكتب) -->
+  <main id="mainHomeView" class="view-section">
+    <header>
+      <h1>📚 المكتبة المهدوية الرقمية</h1>
+      <p>موسوعة أحاديث أهل البيت عليهم السلام - اختر الكتاب لبدء التصفح والبحث</p>
+    </header>
 
-    <!-- كتاب الكافي -->
-    <a href="reader.html?book=data.json&title=الكافي" class="book-card">
-      <div class="book-cover">الكافي</div>
-      <div class="book-title">الكافي - الجزء الأول</div>
-      <div class="book-author">الشيخ الكليني</div>
-    </a>
+    <div class="books-grid">
+      <div class="book-card" onclick="openReader('data.json', 'الكافي - الجزء الأول')">
+        <div class="book-cover">الكافي</div>
+        <h2 class="book-title">الكافي - الجزء الأول</h2>
+        <div class="book-author">الشيخ الكليني</div>
+      </div>
+    </div>
+  </main>
 
-    <!-- كتاب مستقبلي إضافي (مثال) -->
-    <!--
-    <a href="reader.html?book=bihar.json&title=بحار الأنوار" class="book-card">
-      <div class="book-cover">بحار الأنوار</div>
-      <div class="book-title">بحار الأنوار</div>
-      <div class="book-author">الشيخ المجلسي</div>
-    </a>
-    -->
+  <!-- واجهة القراءة والبحث -->
+  <div id="readerView" class="view-section hidden">
+    <div class="top-bar">
+      <button class="back-btn" onclick="showHome()">➔ العودة للمكتبة</button>
+      <span style="color:var(--accent); font-weight:bold" id="currentBookTitle">الكافي</span>
+    </div>
 
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ابحث عن كلمة أو حديث في الكتاب..." oninput="handleSearch(event)">
+    </div>
+
+    <article class="book-page" id="bookPage">
+      <div class="page-header">
+        <span id="chapterTitle">الفصل</span>
+        <span id="hadithId">#1</span>
+      </div>
+
+      <div class="hadith-text" id="hadithText">جاري التجهيز...</div>
+
+      <div class="page-footer">
+        <span id="authorName">الشيخ الكليني</span>
+        <span>اسحب الشاشة للتقليب 👈👉</span>
+      </div>
+    </article>
+
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevHadith()">السابقة ➔</button>
+      <div style="font-size:13px; color:var(--subtext)" id="counterInfo">1 / 1</div>
+      <button class="nav-btn" id="nextBtn" onclick="nextHadith()">⬅ التالية</button>
+    </div>
   </div>
+
+</div>
+
+<script>
+  let allHadiths = [];
+  let currentResults = [];
+  let currentIndex = 0;
+  let searchTimeout = null;
+
+  async function openReader(dataFile, title) {
+    document.getElementById('mainHomeView').classList.add('hidden');
+    document.getElementById('readerView').classList.remove('hidden');
+    document.getElementById('currentBookTitle').innerText = title;
+    document.getElementById('searchInput').value = '';
+    document.getElementById('hadithText').innerText = "⏳ جاري تحميل الروايات...";
+
+    try {
+      const res = await fetch(dataFile);
+      allHadiths = await res.json();
+      currentResults = [...allHadiths];
+      currentIndex = 0;
+      renderCurrentPage();
+    } catch (err) {
+      document.getElementById('hadithText').innerText = "❌ حدث خطأ في تحميل ملف البيانات.";
+    }
+  }
+
+  function showHome() {
+    document.getElementById('readerView').classList.add('hidden');
+    document.getElementById('mainHomeView').classList.remove('hidden');
+  }
+
+  function renderCurrentPage() {
+    if (!currentResults.length) {
+      document.getElementById('hadithText').innerText = "لم يتم العثور على أي نتائج تتطابق مع بحثك.";
+      document.getElementById('chapterTitle').innerText = "-";
+      document.getElementById('hadithId').innerText = "#0";
+      document.getElementById('counterInfo').innerText = "0 / 0";
+      document.getElementById('prevBtn').disabled = true;
+      document.getElementById('nextBtn').disabled = true;
+      return;
+    }
+
+    const item = currentResults[currentIndex];
+    document.getElementById('hadithText').innerText = item.text;
+    document.getElementById('chapterTitle').innerText = item.chapter || "أصول الكافي";
+    document.getElementById('hadithId').innerText = `رواية #${item.id}`;
+    document.getElementById('authorName').innerText = item.author || "";
+    document.getElementById('counterInfo').innerText = `${currentIndex + 1} من ${currentResults.length}`;
+
+    document.getElementById('prevBtn').disabled = (currentIndex === 0);
+    document.getElementById('nextBtn').disabled = (currentIndex === currentResults.length - 1);
+  }
+
+  function nextHadith() {
+    if (currentIndex < currentResults.length - 1) {
+      currentIndex++;
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function prevHadith() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function handleSearch(event) {
+    clearTimeout(searchTimeout);
+    const query = event.target.value.trim().toLowerCase();
+
+    searchTimeout = setTimeout(() => {
+      if (!query) {
+        currentResults = [...allHadiths];
+      } else {
+        currentResults = allHadiths.filter(h => 
+          h.text.toLowerCase().includes(query) || 
+          (h.chapter && h.chapter.toLowerCase().includes(query))
+        );
+      }
+      currentIndex = 0;
+      renderCurrentPage();
+    }, 250);
+  }
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const pageElement = document.getElementById('bookPage');
+
+  pageElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, false);
+  pageElement.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchEndX - touchStartX < -50) nextHadith();
+    if (touchEndX - touchStartX > 50) prevHadith();
+  }, false);
+
+  // تسجيل محرك الأوفلاين
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('جاهز للأوفلاين'))
+        .catch((err) => console.log('خطأ أوفلاين:', err));
+    });
+  }
+</script>
 
 </body>
 </html>
-
