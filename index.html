@@ -6,8 +6,8 @@
 
   <!-- وسوم الفهرسة لـ Google (SEO) -->
   <title>المكتبة المهدوية الرقمية - مكتبة رقمية مختصة بالرويات الإسلامية</title>
-  <meta name="description" content="المكتبة المهدوية الرقمية: تصفح وبحث سريع في أصول الكافي وروايات أهل البيت عليهم السلام من مصادرها المعمدة.">
-  <meta name="keywords" content="المكتبة المهدوية, الكافي, بحار الأنوار, التهذيب, الاستبصار, من لا يحضره الفقية, أحاديث, روايات">
+  <meta name="description" content="المكتبة المهدوية الرقمية: تصفح وبحث سريع في أصول الكافي وغيبة الطوسي وغيبة النعماني ومصباح المتهجد وروايات أهل البيت عليهم السلام.">
+  <meta name="keywords" content="المكتبة المهدوية, الكافي, الغيبة للطوسي, الغيبة للنعماني, مصباح المتهجد, أحاديث, روايات">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#080b11">
 
@@ -21,8 +21,6 @@
       --accent-gold: #c6a052;
       --text-light: #e2e8f0;
       --subtext: #8896ab;
-      --badge-green: #153e2b;
-      --badge-text: #4ade80;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,13 +46,12 @@
       border-bottom: 1px solid var(--card-border);
       margin-bottom: 25px;
     }
-    .brand { display: flex; align-items: center; gap: 10px; }
     .brand-logo { color: var(--accent-gold); font-size: 22px; font-weight: bold; }
     .nav-links { display: flex; gap: 18px; font-size: 14px; }
     .nav-links a { color: var(--subtext); text-decoration: none; transition: 0.2s; }
     .nav-links a.active, .nav-links a:hover { color: var(--accent-gold); }
 
-    /* القسم البطولي (Hero Section) */
+    /* القسم البطولي */
     .hero {
       text-align: center;
       padding: 30px 10px;
@@ -88,7 +85,7 @@
     .tag { background: var(--card-bg); border: 1px solid var(--card-border); padding: 6px 14px; border-radius: 20px; color: var(--subtext); cursor: pointer; }
     .tag:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
 
-    /* شريط الإحصائيات */
+    /* الإحصائيات */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -105,31 +102,11 @@
     .stat-num { font-size: 24px; font-weight: bold; color: var(--text-light); }
     .stat-label { font-size: 13px; color: var(--subtext); margin-top: 4px; }
 
-    /* الأقسام الرئيسية */
+    /* شبكة الكتب المتاحة */
     .section-title { color: var(--accent-gold); font-size: 18px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
-      margin-bottom: 35px;
-    }
-    .cat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 20px 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .cat-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
-    .cat-title { font-size: 14px; font-weight: bold; margin-top: 10px; }
-    .cat-desc { font-size: 11px; color: var(--subtext); margin-top: 4px; }
-
-    /* أكثر الكتب تصفحاً */
     .books-row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 15px;
       margin-bottom: 40px;
     }
@@ -147,26 +124,53 @@
       width: 100%; height: 150px; background: #151c28; border-radius: 6px;
       border: 1px solid var(--accent-gold); display: flex; align-items: center;
       justify-content: center; color: var(--accent-gold); font-weight: bold; margin-bottom: 8px;
+      text-align: center; font-size: 13px; padding: 5px;
     }
     .book-name { font-size: 13px; font-weight: bold; }
-    .book-count { font-size: 11px; color: var(--subtext); margin-top: 3px; }
+    .book-author { font-size: 11px; color: var(--subtext); margin-top: 3px; }
 
-    /* واجهة القراءة (التقليب بدون لاق) */
+    /* واجهة القراءة والتصفح (مع تصحيح عرض النص الطويل والقصير) */
     .reader-container { display: none; width: 100%; }
     .reader-card {
       background: var(--card-bg);
       border: 1px solid var(--accent-gold);
       border-radius: 14px;
-      padding: 25px;
-      min-height: 350px;
+      padding: 22px;
+      min-height: 380px;
+      max-height: 70vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       user-select: none;
     }
-    .reader-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; margin-bottom: 15px; color: var(--accent-gold); font-size: 14px; }
-    .reader-text { font-size: 19px; line-height: 1.8; text-align: justify; flex-grow: 1; margin-bottom: 20px; white-space: pre-line; }
-    .reader-footer { display: flex; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 10px; font-size: 12px; color: var(--subtext); }
+    .reader-header { 
+      display: flex; 
+      justify-content: space-between; 
+      border-bottom: 1px solid var(--card-border); 
+      padding-bottom: 10px; 
+      margin-bottom: 15px; 
+      color: var(--accent-gold); 
+      font-size: 14px; 
+    }
+    .reader-text { 
+      font-size: 18px; 
+      line-height: 1.8; 
+      text-align: justify; 
+      flex-grow: 1; 
+      margin-bottom: 15px; 
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-y: auto; /* إضافة شريط تمرير تلقائي إذا كان النص طويلاً */
+      padding-left: 5px;
+    }
+    .reader-footer { 
+      display: flex; 
+      justify-content: space-between; 
+      border-top: 1px solid var(--card-border); 
+      padding-top: 10px; 
+      font-size: 12px; 
+      color: var(--subtext); 
+    }
     .nav-btns { display: flex; gap: 10px; margin-top: 15px; }
     .btn-nav { flex: 1; padding: 12px; background: var(--card-bg); border: 1px solid var(--accent-gold); color: var(--accent-gold); border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; }
     .btn-nav:disabled { border-color: var(--card-border); color: var(--subtext); cursor: not-allowed; }
@@ -182,24 +186,19 @@
 
 <div class="container">
 
-  <!-- الهيدر -->
   <nav>
-    <div class="brand">
-      <span class="brand-logo">المكتبة المهدوية 🕌</span>
-    </div>
+    <div class="brand-logo">المكتبة المهدوية 🕌</div>
     <div class="nav-links">
       <a href="#" class="active" onclick="showHome()">الرئيسية</a>
       <a href="#">الروايات</a>
-      <a href="#">الأقسام</a>
       <a href="#">المصادر</a>
       <a href="#">حول المكتبة</a>
     </div>
   </nav>
 
-  <!-- الواجهة الرئيسية الأصلية -->
+  <!-- الواجهة الرئيسية -->
   <div id="homeView">
     
-    <!-- القسم البطولي -->
     <section class="hero">
       <h2>مرحباً بكم في</h2>
       <h1>المكتبة المهدوية</h1>
@@ -207,55 +206,69 @@
 
       <div class="search-bar">
         <span class="search-icon">🔍</span>
-        <input type="text" placeholder="ابحث في الروايات.. (كلمة، راوي، مصدر، موضوع)" onkeypress="if(event.key==='Enter') startSearchFromHero(this.value)">
+        <input type="text" placeholder="ابحث في الروايات.. (كلمة، راوي، موضوع)" onkeypress="if(event.key==='Enter') startSearchFromHero(this.value)">
       </div>
 
       <div class="quick-tags">
         <span style="color:var(--subtext)">ابحث عن:</span>
         <span class="tag" onclick="startSearchFromHero('الإمام المهدي')">الإمام المهدي</span>
-        <span class="tag" onclick="startSearchFromHero('أخلاق')">أحاديث الأخلاق</span>
-        <span class="tag" onclick="startSearchFromHero('الكافي')">أحاديث الكافي</span>
-        <span class="tag" onclick="startSearchFromHero('التوحيد')">أحاديث التوحيد</span>
+        <span class="tag" onclick="startSearchFromHero('الكافي')">الكافي</span>
+        <span class="tag" onclick="startSearchFromHero('الغيبة')">الغيبة</span>
       </div>
     </section>
 
     <!-- الإحصائيات -->
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-num">128</div><div class="stat-label">مصدر</div></div>
+      <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">كتب مفهرسة</div></div>
       <div class="stat-card"><div class="stat-num">512</div><div class="stat-label">راوي</div></div>
       <div class="stat-card"><div class="stat-num">15,842</div><div class="stat-label">رواية</div></div>
-      <div class="stat-card"><div class="stat-num">200</div><div class="stat-label">كتاب</div></div>
+      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">مجانية ودون إعلانات</div></div>
     </div>
 
-    <!-- الأقسام الرئيسية -->
-    <h3 class="section-title">✨ الأقسام الرئيسية</h3>
-    <div class="categories-grid">
-      <div class="cat-card"><div class="cat-title">العقائد والتوحيد</div><div class="cat-desc">36 كتاب • 3,128 رواية</div></div>
-      <div class="cat-card"><div class="cat-title">الإمام المهدي</div><div class="cat-desc">21 كتاب • 3,541 رواية</div></div>
-      <div class="cat-card"><div class="cat-title">الأخلاق والآداب</div><div class="cat-desc">28 كتاب • 2,126 رواية</div></div>
-      <div class="cat-card"><div class="cat-title">الفقه</div><div class="cat-desc">32 كتاب • 2,745 رواية</div></div>
-      <div class="cat-card"><div class="cat-title">الأدعية والزيارات</div><div class="cat-desc">25 كتاب • 1,987 رواية</div></div>
-      <div class="cat-card"><div class="cat-title">التاريخ والسير</div><div class="cat-desc">18 كتاب • 2,315 رواية</div></div>
-    </div>
-
-    <!-- أكثر الكتب تصفحاً -->
-    <h3 class="section-title">📚 أكثر الكتب تصفحاً</h3>
+    <!-- الكتب المتاحة للتصفح -->
+    <h3 class="section-title">📚 الكتب المتاحة للتصفح</h3>
     <div class="books-row">
-      <div class="book-thumb" onclick="openBook('data.json', 'الكافي - الجزء الأول')">
+      
+      <!-- الكافي -->
+      <div class="book-thumb" onclick="openBook('data.json', 'الكافي - الجزء الأول', 'الشيخ الكليني')">
         <div class="book-cover-img">الكافي</div>
-        <div class="book-name">الكافي</div>
-        <div class="book-count">8,123 رواية</div>
+        <div class="book-name">الكافي - ج1</div>
+        <div class="book-author">الشيخ الكليني</div>
       </div>
-      <div class="book-thumb"><div class="book-cover-img">بحار الأنوار</div><div class="book-name">بحار الأنوار</div><div class="book-count">2,987 رواية</div></div>
-      <div class="book-thumb"><div class="book-cover-img">وسائل الشيعة</div><div class="book-name">وسائل الشيعة</div><div class="book-count">3,126 رواية</div></div>
-      <div class="book-thumb"><div class="book-cover-img">الفقيه</div><div class="book-name">من لا يحضره الفقيه</div><div class="book-count">3,875 رواية</div></div>
-      <div class="book-thumb"><div class="book-cover-img">الاستبصار</div><div class="book-name">الاستبصار</div><div class="book-count">4,128 رواية</div></div>
-      <div class="book-thumb"><div class="book-cover-img">التهذيب</div><div class="book-name">التهذيب</div><div class="book-count">6,542 رواية</div></div>
+
+      <!-- غيبة الطوسي -->
+      <div class="book-thumb" onclick="openBook('ghaiba_tusi.json', 'كتاب الغيبة', 'الشيخ الطوسي')">
+        <div class="book-cover-img">الغيبة<br>للطوسي</div>
+        <div class="book-name">كتاب الغيبة</div>
+        <div class="book-author">الشيخ الطوسي</div>
+      </div>
+
+      <!-- غيبة النعماني -->
+      <div class="book-thumb" onclick="openBook('ghaiba_numani.json', 'كتاب الغيبة', 'الشيخ النعماني')">
+        <div class="book-cover-img">الغيبة<br>للنعماني</div>
+        <div class="book-name">كتاب الغيبة</div>
+        <div class="book-author">الشيخ النعماني</div>
+      </div>
+
+      <!-- مصباح المتهجد ج1 -->
+      <div class="book-thumb" onclick="openBook('misbah_1.json', 'مصباح المتهجد - ج1', 'الشيخ الطوسي')">
+        <div class="book-cover-img">مصباح المتهجد<br>ج1</div>
+        <div class="book-name">مصباح المتهجد ج1</div>
+        <div class="book-author">الشيخ الطوسي</div>
+      </div>
+
+      <!-- مصباح المتهجد ج2 -->
+      <div class="book-thumb" onclick="openBook('misbah_2.json', 'مصباح المتهجد - ج2', 'الشيخ الطوسي')">
+        <div class="book-cover-img">مصباح المتهجد<br>ج2</div>
+        <div class="book-name">مصباح المتهجد ج2</div>
+        <div class="book-author">الشيخ الطوسي</div>
+      </div>
+
     </div>
 
   </div>
 
-  <!-- قارئ الكتب والبحث التقليبي (مخفي افتراضياً) -->
+  <!-- واجهة القراءة -->
   <div id="readerView" class="reader-container">
     <button class="back-to-home" onclick="showHome()">➔ العودة للرئيسية</button>
     
@@ -265,12 +278,12 @@
 
     <div class="reader-card" id="bookPage">
       <div class="reader-header">
-        <span id="chapterTitle">الفصل</span>
+        <span id="chapterTitle">الباب / الفصل</span>
         <span id="hadithId">#1</span>
       </div>
       <div class="reader-text" id="hadithText">جاري تحميل النصوص...</div>
       <div class="reader-footer">
-        <span id="authorName">الشيخ الكليني</span>
+        <span id="authorName">اسم المؤلف</span>
         <span>اسحب لليمين/اليسار للتقليب 👈👉</span>
       </div>
     </div>
@@ -289,12 +302,14 @@
   let currentResults = [];
   let currentIndex = 0;
   let searchTimeout = null;
+  let currentBookAuthor = "";
 
-  function openBook(dataFile, title) {
+  function openBook(dataFile, title, author) {
     document.getElementById('homeView').style.display = 'none';
     document.getElementById('readerView').style.display = 'block';
     document.getElementById('readerSearchInput').value = '';
     document.getElementById('hadithText').innerText = "⏳ جاري تحميل الروايات...";
+    currentBookAuthor = author || "المؤلف";
 
     fetch(dataFile)
       .then(res => res.json())
@@ -305,12 +320,12 @@
         renderCurrentPage();
       })
       .catch(err => {
-        document.getElementById('hadithText').innerText = "❌ حدث خطأ في تحميل ملف البيانات.";
+        document.getElementById('hadithText').innerText = "❌ لم يتم العثور على ملف البيانات لهذا الكتاب بعد (" + dataFile + "). تأكد من رفعه في GitHub بنفس الاسم.";
       });
   }
 
   function startSearchFromHero(query) {
-    openBook('data.json', 'الكافي');
+    openBook('data.json', 'الكافي', 'الشيخ الكليني');
     document.getElementById('readerSearchInput').value = query;
     setTimeout(() => {
       handleSearch({ target: { value: query } });
@@ -334,21 +349,23 @@
     }
 
     const item = currentResults[currentIndex];
-    document.getElementById('hadithText').innerText = item.text;
-    document.getElementById('chapterTitle').innerText = item.chapter || "أصول الكافي";
-    document.getElementById('hadithId').innerText = `رواية #${item.id}`;
-    document.getElementById('authorName').innerText = item.author || "الشيخ الكليني";
+    document.getElementById('hadithText').innerText = item.text || item.content || item.hadith || "";
+    document.getElementById('chapterTitle').innerText = item.chapter || item.title || "الرواية";
+    document.getElementById('hadithId').innerText = `رواية #${item.id || (currentIndex + 1)}`;
+    document.getElementById('authorName').innerText = item.author || currentBookAuthor;
     document.getElementById('counterInfo').innerText = `${currentIndex + 1} من ${currentResults.length}`;
 
     document.getElementById('prevBtn').disabled = (currentIndex === 0);
     document.getElementById('nextBtn').disabled = (currentIndex === currentResults.length - 1);
+
+    // إعادة التمرير لأعلى الكارت عند الانتقال
+    document.getElementById('hadithText').scrollTop = 0;
   }
 
   function nextHadith() {
     if (currentIndex < currentResults.length - 1) {
       currentIndex++;
       renderCurrentPage();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
@@ -356,7 +373,6 @@
     if (currentIndex > 0) {
       currentIndex--;
       renderCurrentPage();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
@@ -368,17 +384,18 @@
       if (!query) {
         currentResults = [...allHadiths];
       } else {
-        currentResults = allHadiths.filter(h => 
-          h.text.toLowerCase().includes(query) || 
-          (h.chapter && h.chapter.toLowerCase().includes(query))
-        );
+        currentResults = allHadiths.filter(h => {
+          const txt = h.text || h.content || h.hadith || "";
+          const ch = h.chapter || h.title || "";
+          return txt.toLowerCase().includes(query) || ch.toLowerCase().includes(query);
+        });
       }
       currentIndex = 0;
       renderCurrentPage();
     }, 250);
   }
 
-  // دعم السحب باللمس
+  // دعم التقليب بالسحب على شاشات اللمس
   let touchStartX = 0;
   let touchEndX = 0;
   const pageElement = document.getElementById('bookPage');
@@ -390,7 +407,6 @@
     if (touchEndX - touchStartX > 50) prevHadith();
   }, false);
 
-  // تفعيل خدمة الأوفلاين
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
