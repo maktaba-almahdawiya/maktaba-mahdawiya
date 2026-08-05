@@ -1,1 +1,30 @@
-
+[
+  {
+    "id": "kafi-1",
+    "title": "الكافي - الجزء الأول",
+    "author": "الشيخ الكليني",
+    "cover": "assets/images/kafi.jpg",
+    "file": "books/kafi-1.json"
+  },
+  {
+    "id": "numani",
+    "title": "الغيبة للنعماني",
+    "author": "محمد بن إبراهيم النعماني",
+    "cover": "assets/images/numani.jpg",
+    "file": "books/numani.json"
+  },
+  {
+    "id": "kamal",
+    "title": "كمال الدين",
+    "author": "الشيخ الصدوق",
+    "cover": "assets/images/kamal.jpg",
+    "file": "books/kamal.json"
+  },
+  {
+    "id": "tusi",
+    "title": "الغيبة للطوسي",
+    "author": "الشيخ الطوسي",
+    "cover": "assets/images/tusi.jpg",
+    "file": "books/tusi.json"
+  }
+]
