@@ -1,201 +1,241 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>قارئ الكتب - المكتبة المهدوية</title>
-  <style>
-    :root {
-      --bg-color: #0b0e14;
-      --card-bg: #121824;
-      --accent: #d4af37;
-      --text: #e2e8f0;
-      --subtext: #94a3b8;
-    }
-    body {
-      background-color: var(--bg-color);
-      color: var(--text);
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container { width: 100%; max-width: 650px; }
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px;
-    }
-    .back-btn {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-    }
-    .book-header-title { font-size: 18px; color: var(--accent); font-weight: bold; }
-    .search-box { width: 100%; margin-bottom: 15px; }
-    .search-box input {
-      width: 100%; padding: 14px; background: var(--card-bg);
-      border: 1px solid var(--accent); border-radius: 10px;
-      color: var(--text); font-size: 16px; outline: none; box-sizing: border-box;
-    }
-    .book-page {
-      background: var(--card-bg);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 14px; padding: 25px 20px; min-height: 350px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5); user-select: none;
-    }
-    .page-header {
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      padding-bottom: 10px; margin-bottom: 15px;
-      display: flex; justify-content: space-between; font-size: 14px; color: var(--accent);
-    }
-    .hadith-text { font-size: 19px; line-height: 1.8; color: #f1f5f9; text-align: justify; flex-grow: 1; margin-bottom: 20px; }
-    .page-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 12px; display: flex; justify-content: space-between; font-size: 13px; color: var(--subtext);
-    }
-    .nav-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; }
-    .nav-btn {
-      background: var(--card-bg); border: 1px solid var(--accent);
-      color: var(--accent); padding: 12px 20px; border-radius: 8px;
-      font-weight: bold; cursor: pointer; flex: 1; text-align: center;
-    }
-    .nav-btn:disabled { border-color: #334155; color: #475569; cursor: not-allowed; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبة المهدوية - قارئ الروايات</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- الخطوط العربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #0b0f19;
+            color: #e5e7eb;
+        }
+        .font-amiri {
+            font-family: 'Amiri', serif;
+        }
+        /* تخصيص شريط التمرير للمربع */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between p-4 max-w-2xl mx-auto">
 
-<div class="container">
-  <div class="top-bar">
-    <a href="index.html" class="back-btn">➔ العودة للمكتبة</a>
-    <span class="book-header-title" id="mainBookTitle">الكتاب</span>
-  </div>
+    <!-- الهيدر العلوي -->
+    <header class="flex justify-between items-center border-b border-amber-900/40 pb-3 mb-4">
+        <h1 class="text-xl font-bold text-amber-500 flex items-center gap-2">
+            🏰 المكتبة المهدوية
+        </h1>
+        <a href="index.html" class="bg-amber-900/20 hover:bg-amber-900/40 text-amber-400 border border-amber-600/40 px-3 py-1.5 rounded-lg text-sm transition">
+            ➔ العودة للرئيسية
+        </a>
+    </header>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="ابحث داخل هذا الكتاب..." oninput="handleSearch(event)">
-  </div>
-
-  <div class="book-page" id="bookPage">
-    <div class="page-header">
-      <span id="chapterTitle">الفصل</span>
-      <span id="hadithId">#1</span>
+    <!-- شريط البحث داخل الكتاب -->
+    <div class="mb-4">
+        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="ابحث داخل هذا الكتاب..." 
+            class="w-full bg-[#121826] border border-amber-900/30 rounded-xl px-4 py-2.5 text-sm text-gray-200 focus:outline-none focus:border-amber-500 transition shadow-inner">
     </div>
 
-    <div class="hadith-text" id="hadithText">جاري تحميل النص...</div>
+    <!-- بطاقة عرض الرواية (بارتفاع نصف الشاشة) -->
+    <main class="w-full min-h-[50vh] max-h-[60vh] bg-[#121826] border border-amber-600/30 rounded-2xl p-5 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+        
+        <!-- أعلي البطاقة: اسم الكتاب ورقم الرواية وزر النسخ -->
+        <div class="flex justify-between items-center text-xs text-amber-500/80 border-b border-amber-900/30 pb-3">
+            <span id="bookTitle" class="font-bold">جاري التحميل...</span>
+            <div class="flex items-center gap-3">
+                <span id="hadithIndex">رواية #--</span>
+                <button onclick="copyCurrentHadith()" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded border border-amber-500/30 transition flex items-center gap-1 text-xs">
+                    📋 <span>نسخ</span>
+                </button>
+            </div>
+        </div>
 
-    <div class="page-footer">
-      <span id="authorName">-</span>
-      <span>اسحب لليمين/اليسار للتقليب 👈👉</span>
+        <!-- منتصف البطاقة: النص (مع سكرول تلقائي عند الطول وتكبير للخط عند القصر) -->
+        <div class="flex-grow flex items-center justify-center my-3 overflow-y-auto custom-scrollbar px-2">
+            <p id="hadithText" class="w-full transition-all duration-300 font-amiri text-center">
+                جاري تحميل النص...
+            </p>
+        </div>
+
+        <!-- أسفل البطاقة: المصدر وعلامة التقليب -->
+        <div class="flex justify-between items-center text-xs text-gray-500 border-t border-amber-900/30 pt-3">
+            <span id="authorName">المكتبة المهدوية</span>
+            <span class="text-amber-500/60">اسحب لليمين/اليسار للتقليب 👈👉</span>
+        </div>
+    </main>
+
+    <!-- أزرار التصفح والتقليب -->
+    <footer class="mt-4">
+        <div class="flex justify-between items-center gap-2">
+            <button onclick="prevHadith()" id="prevBtn" class="flex-1 bg-[#121826] hover:bg-amber-900/30 text-amber-400 border border-amber-900/40 py-2.5 rounded-xl transition text-sm font-semibold disabled:opacity-30">
+                ➔ السابقة
+            </button>
+            
+            <div id="pageCounter" class="text-xs text-amber-500/80 px-2 min-w-[70px] text-center font-bold">
+                -- من --
+            </div>
+
+            <button onclick="nextHadith()" id="nextBtn" class="flex-1 bg-[#121826] hover:bg-amber-900/30 text-amber-400 border border-amber-900/40 py-2.5 rounded-xl transition text-sm font-semibold disabled:opacity-30">
+                التالية ➔
+            </button>
+        </div>
+    </footer>
+
+    <!-- تنبيه عند النسخ -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-amber-600 text-black px-4 py-2 rounded-lg text-xs font-bold opacity-0 transition-opacity pointer-events-none shadow-lg">
+        تم نسخ الرواية بنجاح!
     </div>
-  </div>
 
-  <div class="nav-controls">
-    <button class="nav-btn" id="prevBtn" onclick="prevHadith()">السابقة ➔</button>
+    <!-- السكريبت البرمجي -->
+    <script>
+        let allHadiths = [];
+        let filteredHadiths = [];
+        let currentIndex = 0;
 
-    <div style="font-size:14px; color:var(--subtext)" id="counterInfo">1 / 1</div>
-    <button class="nav-btn" id="nextBtn" onclick="nextHadith()">⬅ التالية</button>
-  </div>
-</div>
+        // معرفة اسم كتاب JSON من رابط الصفحة (مثال: reader.html?book=ghaiba_numani.json)
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookFile = urlParams.get('book') || 'ghaiba_numani.json';
 
-<script>
-  let allHadiths = [];
-  let currentResults = [];
-  let currentIndex = 0;
-  let searchTimeout = null;
+        // تحميل بيانات الكتاب
+        async function loadBookData() {
+            try {
+                const response = await fetch(bookFile);
+                const data = await response.json();
+                
+                // استخراج الروايات والعناوين
+                if (Array.isArray(data)) {
+                    allHadiths = data;
+                } else if (data.hadiths) {
+                    allHadiths = data.hadiths;
+                    document.getElementById('bookTitle').innerText = data.title || "الكتاب";
+                    document.getElementById('authorName').innerText = data.author || "المؤلف";
+                }
+                
+                filteredHadiths = [...allHadiths];
+                if (filteredHadiths.length > 0) {
+                    renderHadith();
+                } else {
+                    document.getElementById('hadithText').innerText = "لا توجد بيانات داخل هذا الكتاب.";
+                }
+            } catch (error) {
+                console.error("خطأ في تحميل البيانات:", error);
+                document.getElementById('hadithText').innerText = "حدث خطأ أثناء تحميل ملف الكتاب.";
+            }
+        }
 
-  // معرفة أي كتاب اختاره المستخدم من الرابط
-  const urlParams = new URLSearchParams(window.location.search);
-  const bookFile = urlParams.get('book') || 'data.json';
-  const bookTitle = urlParams.get('title') || 'الكافي';
-  document.getElementById('mainBookTitle').innerText = bookTitle;
+        // عرض الرواية الحالية وتعديل حجم الخط حسب طول النص
+        function renderHadith() {
+            if (filteredHadiths.length === 0) return;
 
-  async function loadData() {
-    try {
-      const res = await fetch(bookFile);
-      allHadiths = await res.json();
-      currentResults = [...allHadiths];
-      currentIndex = 0;
-      renderCurrentPage();
-    } catch (err) {
-      document.getElementById('hadithText').innerText = "❌ حدث خطأ في تحميل ملف البيانات لهذا الكتاب.";
-    }
-  }
+            const item = filteredHadiths[currentIndex];
+            const textElement = document.getElementById('hadithText');
+            
+            // تنظيف واستخراج النص
+            let text = typeof item === 'string' ? item : (item.text || item.content || '');
+            
+            textElement.innerText = text;
 
-  function renderCurrentPage() {
-    if (!currentResults.length) {
-      document.getElementById('hadithText').innerText = "لم يتم العثور على أي نتائج.";
-      document.getElementById('chapterTitle').innerText = "-";
-      document.getElementById('hadithId').innerText = "#0";
-      document.getElementById('counterInfo').innerText = "0 / 0";
-      document.getElementById('prevBtn').disabled = true;
-      document.getElementById('nextBtn').disabled = true;
-      return;
-    }
+            // كسر جمود النصوص القصيرة (تعديل الحجم والارتقاء بالنص)
+            const textLength = text.trim().length;
+            if (textLength < 50) {
+                // نص قصير جداً (مثل البسملة) -> خط كبير جداً وفي المنتصف
+                textElement.className = "w-full font-amiri text-2xl md:text-3xl text-amber-300 font-bold text-center leading-loose my-auto";
+            } else if (textLength < 200) {
+                // نص متوسط -> خط كبير
+                textElement.className = "w-full font-amiri text-xl md:text-2xl text-amber-100 font-semibold text-center leading-relaxed my-auto";
+            } else {
+                // نص طويل -> خط مخصص للقراءة مع محاذاة ضبط
+                textElement.className = "w-full font-amiri text-lg md:text-xl text-gray-200 text-justify leading-loose my-0";
+            }
 
-    const item = currentResults[currentIndex];
-    document.getElementById('hadithText').innerText = item.text;
-    document.getElementById('chapterTitle').innerText = item.chapter || bookTitle;
-    document.getElementById('hadithId').innerText = `رواية #${item.id}`;
-    document.getElementById('authorName').innerText = item.author || "";
-    document.getElementById('counterInfo').innerText = `${currentIndex + 1} من ${currentResults.length}`;
+            // تحديث العناوين والأرقام
+            document.getElementById('hadithIndex').innerText = `رواية #${item.id || currentIndex + 1}`;
+            document.getElementById('pageCounter').innerText = `${currentIndex + 1} من ${filteredHadiths.length}`;
 
-    document.getElementById('prevBtn').disabled = (currentIndex === 0);
-    document.getElementById('nextBtn').disabled = (currentIndex === currentResults.length - 1);
-  }
+            // تعطيل/تفعيل الأزرار
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === filteredHadiths.length - 1;
+        }
 
-  function nextHadith() {
-    if (currentIndex < currentResults.length - 1) {
-      currentIndex++;
-      renderCurrentPage();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }
+        // التقليب
+        function nextHadith() {
+            if (currentIndex < filteredHadiths.length - 1) {
+                currentIndex++;
+                renderHadith();
+            }
+        }
 
-  function prevHadith() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      renderCurrentPage();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }
+        function prevHadith() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderHadith();
+            }
+        }
 
-  function handleSearch(event) {
-    clearTimeout(searchTimeout);
-    const query = event.target.value.trim().toLowerCase();
-    searchTimeout = setTimeout(() => {
-      if (!query) {
-        currentResults = [...allHadiths];
-      } else {
-        currentResults = allHadiths.filter(h => 
-          h.text.toLowerCase().includes(query) || 
-          (h.chapter && h.chapter.toLowerCase().includes(query))
-        );
-      }
-      currentIndex = 0;
-      renderCurrentPage();
-    }, 250);
-  }
+        // البحث داخل الكتاب
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (query === "") {
+                filteredHadiths = [...allHadiths];
+            } else {
+                filteredHadiths = allHadiths.filter(item => {
+                    const text = typeof item === 'string' ? item : (item.text || item.content || '');
+                    return text.toLowerCase().includes(query);
+                });
+            }
+            currentIndex = 0;
+            renderHadith();
+        }
 
-  // دعم التمرير باللمس للموبايل
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const pageElement = document.getElementById('bookPage');
+        // نسخ الرواية
+        function copyCurrentHadith() {
+            if (filteredHadiths.length === 0) return;
+            const text = document.getElementById('hadithText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            });
+        }
 
-  pageElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, false);
-  pageElement.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    if (touchEndX - touchStartX < -50) nextHadith();
-    if (touchEndX - touchStartX > 50) prevHadith();
-  }, false);
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2000);
+        }
 
-  loadData();
-</script>
+        // دعم التقليب عبر السحب باللمس على الشاشة
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
 
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextHadith(); // سحب لليسار
+            if (touchEndX > touchStartX + 50) prevHadith(); // سحب لليمين
+        }
+
+        // تشغيل الصفحة عند التحميل
+        loadBookData();
+    </script>
 </body>
 </html>
