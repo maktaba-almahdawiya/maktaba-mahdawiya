@@ -1,159 +1,90 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المكتبة المهدوية - الصفحة الرئيسية</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #0d0f14;
-            color: #e2e8f0;
-        }
-        .gold-gradient {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>المكتبة المهدوية | أكبر مكتبة شيعية رقمية</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
 </head>
-<body class="min-h-screen flex flex-col justify-between">
 
-    <!-- شريط العلوي (Navbar) -->
-    <nav class="border-b border-amber-900/30 bg-[#12151e]/80 backdrop-blur sticky top-0 z-50 px-4 py-3">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="text-2xl">🏰</span>
-                <span class="text-xl font-bold text-amber-500">المكتبة المهدوية</span>
-            </div>
-            <div class="hidden md:flex items-center gap-6 text-sm text-gray-300">
-                <a href="index.html" class="text-amber-500 font-semibold">الرئيسية</a>
-                <a href="#" class="hover:text-amber-400 transition">الكتب</a>
-                <a href="#" class="hover:text-amber-400 transition">المؤلفون</a>
-                <a href="#" class="hover:text-amber-400 transition">التصنيفات</a>
-            </div>
-        </div>
-    </nav>
+<body>
 
-    <!-- الواجهة الرئيسية (Hero Section) -->
-    <header class="max-w-4xl mx-auto text-center px-4 pt-12 pb-8">
-        <h1 class="text-3xl md:text-5xl font-extrabold text-amber-500 mb-4 tracking-wide">
-            المكتبة المهدوية
-        </h1>
-        <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
-            مكتبة رقمية شاملة تعنى بنشر تراث أهل البيت عليهم السلام، بتصميم عصري يسهل القراءة والبحث.
-        </p>
+<header class="hero">
 
-        <!-- مربع البحث الرئيسي -->
-        <div class="relative max-w-xl mx-auto mb-10">
-            <input type="text" placeholder="ابحث عن كتاب، مؤلف، أو نص..." 
-                class="w-full bg-[#161a23] border border-amber-900/40 rounded-xl py-3.5 pr-11 pl-4 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-amber-500 transition shadow-lg">
-            <span class="absolute right-4 top-3.5 text-gray-500">🔍</span>
-        </div>
+<nav class="navbar">
 
-        <!-- الإحصائيات -->
-        <div class="flex justify-center items-center gap-6 md:gap-12 text-gray-400 border-y border-amber-900/20 py-4 max-w-2xl mx-auto text-sm">
-            <div><span class="font-bold text-amber-500 text-lg">12</span> كتاب</div>
-            <div class="h-4 w-px bg-amber-900/30"></div>
-            <div><span class="font-bold text-amber-500 text-lg">150</span> مجلد</div>
-            <div class="h-4 w-px bg-amber-900/30"></div>
-            <div><span class="font-bold text-amber-500 text-lg">8</span> تصنيفات</div>
-        </div>
-    </header>
+<div class="logo">
+المكتبة المهدوية
+</div>
 
-    <!-- قسم الكتب الأكثر قراءة -->
-    <main class="max-w-6xl mx-auto px-4 py-6 w-full space-y-10">
-        <section>
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-lg font-bold text-gray-100 border-r-4 border-amber-500 pr-3">
-                    الكتب الأكثر قراءة
-                </h2>
-                <a href="#" class="text-xs text-amber-500 hover:underline">عرض الكل ←</a>
-            </div>
+<div class="menu">
 
-            <!-- شبكة بطاقات الكتب -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                
-                <!-- كتاب 1: الغيبة للنعماني -->
-                <a href="reader.html?book=ghaiba_numani.json" class="bg-[#161a23] border border-amber-900/30 hover:border-amber-500/60 p-5 rounded-2xl transition duration-300 block shadow-md group">
-                    <h3 class="font-bold text-lg text-amber-400 group-hover:text-amber-300 mb-1">كتاب الغيبة</h3>
-                    <p class="text-xs text-gray-400 mb-3">الشيخ محمد بن إبراهيم النعماني</p>
-                    <span class="bg-amber-950/60 text-amber-500 text-xs px-2.5 py-1 rounded-md border border-amber-900/40">
-                        مصادر الحديث / الروايات
-                    </span>
-                </a>
+<a href="#">الرئيسية</a>
 
-                <!-- كتاب 2: الكافي (data.json) -->
-                <a href="reader.html?book=data.json" class="bg-[#161a23] border border-amber-900/30 hover:border-amber-500/60 p-5 rounded-2xl transition duration-300 block shadow-md group">
-                    <h3 class="font-bold text-lg text-amber-400 group-hover:text-amber-300 mb-1">الكافي - الجزء الأول</h3>
-                    <p class="text-xs text-gray-400 mb-3">الشيخ الكليني</p>
-                    <span class="bg-amber-950/60 text-amber-500 text-xs px-2.5 py-1 rounded-md border border-amber-900/40">
-                        الفقه والحديث
-                    </span>
-                </a>
+<a href="#">الكتب</a>
 
-                <!-- كتاب 3: بحار الأنوار -->
-                <a href="reader.html?book=data.json" class="bg-[#161a23] border border-amber-900/30 hover:border-amber-500/60 p-5 rounded-2xl transition duration-300 block shadow-md group">
-                    <h3 class="font-bold text-lg text-amber-400 group-hover:text-amber-300 mb-1">بحار الأنوار</h3>
-                    <p class="text-xs text-gray-400 mb-3">العلامة المجلسي</p>
-                    <span class="bg-amber-950/60 text-amber-500 text-xs px-2.5 py-1 rounded-md border border-amber-900/40">
-                        موسوعات الحديث
-                    </span>
-                </a>
+<a href="#">الروايات</a>
 
-                <!-- كتاب 4: وسائل الشيعة -->
-                <a href="reader.html?book=data.json" class="bg-[#161a23] border border-amber-900/30 hover:border-amber-500/60 p-5 rounded-2xl transition duration-300 block shadow-md group">
-                    <h3 class="font-bold text-lg text-amber-400 group-hover:text-amber-300 mb-1">وسائل الشيعة</h3>
-                    <p class="text-xs text-gray-400 mb-3">الحر العاملي</p>
-                    <span class="bg-amber-950/60 text-amber-500 text-xs px-2.5 py-1 rounded-md border border-amber-900/40">
-                        أحاديث الأحكام
-                    </span>
-                </a>
+<a href="#">حول المكتبة</a>
 
-            </div>
-        </section>
+</div>
 
-        <!-- قسم التصفح حسب التصنيف -->
-        <section>
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-lg font-bold text-gray-100 border-r-4 border-amber-500 pr-3">
-                    تصفح حسب التصنيف
-                </h2>
-                <a href="#" class="text-xs text-amber-500 hover:underline">عرض الكل ←</a>
-            </div>
+</nav>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div class="bg-[#161a23] border border-amber-900/20 p-4 rounded-xl flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-sm text-gray-200">الحديث وعلومه</h4>
-                        <p class="text-[10px] text-gray-500">مصادر الحديث العامة</p>
-                    </div>
-                    <span class="bg-amber-900/20 text-amber-500 text-xs px-2 py-0.5 rounded">345</span>
-                </div>
-                <div class="bg-[#161a23] border border-amber-900/20 p-4 rounded-xl flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-sm text-gray-200">العقائد والكلام</h4>
-                        <p class="text-[10px] text-gray-500">العقيدة والإمامة</p>
-                    </div>
-                    <span class="bg-amber-900/20 text-amber-500 text-xs px-2 py-0.5 rounded">120</span>
-                </div>
-                <div class="bg-[#161a23] border border-amber-900/20 p-4 rounded-xl flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-sm text-gray-200">التاريخ والسير</h4>
-                        <p class="text-[10px] text-gray-500">سيرة المعصومين</p>
-                    </div>
-                    <span class="bg-amber-900/20 text-amber-500 text-xs px-2 py-0.5 rounded">98</span>
-                </div>
-            </div>
-        </section>
-    </main>
+<div class="hero-content">
 
-    <!-- الفوتر -->
-    <footer class="border-t border-amber-900/20 py-6 text-center text-xs text-gray-500 mt-12">
-        جميع الحقوق محفوظة © المكتبة المهدوية 2026
-    </footer>
+<h1>
+المكتبة المهدوية
+</h1>
+
+<p>
+مكتبة رقمية شيعية للكتب والروايات الإسلامية
+قابلة للبحث والنسخ بالكامل.
+</p>
+
+<div class="search-box">
+
+<input
+id="searchInput"
+type="text"
+placeholder="ابحث عن كتاب أو رواية...">
+
+<button>
+
+بحث
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="books">
+
+<h2>
+
+أحدث الكتب
+
+</h2>
+
+<div id="booksContainer" class="books-grid">
+
+</div>
+
+</section>
+
+<script src="assets/js/script.js"></script>
 
 </body>
+
 </html>
